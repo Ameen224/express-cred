@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #403626;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #756142;
+            color: black;
+        }
+       
+        .back {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            background-color:  black;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            width: fit-content;
+        }
+        
+        .edit, .delete {
+            padding: 5px 10px;
+            color: white;
+            background: black;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Data Table</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                 <th>action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% dataArray.forEach(data => { %>
+                <tr>
+                    <td><%= data.name %></td>
+                    <td><%= data.Age %></td>
+                    <td><%= data["number"] %></td>
+                    <td><%= data.mail %></td>
+                    <td> <button class="edit" onclick="edit(`<%=data.id %>`)">Edit</button>
+                        <button type="submit" class="delete" onclick="deleteRecord('<%= data.id %>')" data-id="<%= data.id %>">Delete</button></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <a class="back" href="/home">Go Back</a>
+
+    <script>
+ function deleteRecord(id) {
+    if (!id) {
+        alert("Invalid ID");
+        return;
+    }
+
+    console.log("Deleting record with ID:", id); // Debugging log
+    fetch(`/delete/${id}`, {
+        method: "DELETE", // Ensure DELETE is in uppercase
+    })
+        .then(response => {
+            if (!response.ok) throw new Error("Failed to delete");
+            return response.json();
+        })
+        .then(data => {
+            console.log("Delete response:", data); // Debugging log
+            alert(data.message);
+            location.reload(); // Refresh the page after success
+        })
+        .catch(error => {
+            console.error("Error during delete:", error); // Debugging log
+            alert("Failed to delete item");
+        });
+}
+function edit(id) {
+    if (!id) {
+        alert("Invalid ID");
+        return;
+    }
+    // Redirect the user to the edit form
+    window.location.href = `/edit/${id}`;
+}
+
+    </script>
+</body>
+</html>

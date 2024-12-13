@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0%;
+        }
+        .main{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color:   #403626 ;
+        }
+        .second-main{
+            width: 50%;
+            height: 100vh;
+            background-color:  #756142;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h1{
+           margin-bottom: 40px;
+            text-align: center;
+
+        }
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .form-group,button {
+            width: 80%;
+            margin-bottom: 30px;
+            position: relative;
+        
+        }
+        
+        input {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            font-size: 1em;
+            margin-top: 5px;
+        }
+        input:focus {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        span {
+            color:#0a0703;
+            font-size: 0.9em;
+            position: absolute;
+        }   
+        #button {
+        background-color:black;
+        color: white;
+        height: 40px;
+        text-align: center;
+        text-decoration: none;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+
+    .change{
+            display: flex;
+            justify-content: center;
+        }
+        .back{
+            width: 100px;
+            height: 40px;
+            background: #0a0703;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border: none;
+            border-radius: 15px;
+
+        }
+        .atag{
+        color: white;
+        text-decoration: none;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="main" >
+        <div class="second-main">
+         <h1>REGISTRATION FORM</h1>
+         <form method="post" onsubmit="return validation()" action="/post">
+
+            <div class="form-group  ">
+                <input type="text" name="name" class="form-control" id="inputName" placeholder=" Name" >
+                <span id="error-1"></span>
+              </div>
+        
+
+              <div class="form-group  ">
+                <input type="number" name="Age" class="form-control" id="inputage" placeholder="Age" >
+                <span id="error-2"></span>
+              </div>
+
+
+              <div class="form-group  ">
+                <input type="number" name="number" class="form-control" id="inputphonenumber" placeholder="Phone NUmber" >
+                <span id="error-3"></span>
+              </div>
+
+              <div class="form-group  ">
+                <input type="email" name="mail" class="form-control" id="inputmail" placeholder=" Gmail" >
+                <span id="error-4"></span>
+              </div>
+
+              <div class="form-group">
+                <button type="submit" id="button">Submit</button>
+            </div>
+
+            <div class="change">
+                <button class="back"><a class="atag" href="/table">Go to Table</button>
+            </div>
+            
+         </form>
+        </div>
+    </div>
+
+    <script>
+  function validation(){
+      
+    let name =document.getElementById("inputName").value
+    let age =document.getElementById("inputage").value
+    let phone =document.getElementById("inputphonenumber").value
+    let mail=document.getElementById("inputmail").value
+
+    let error1 = document.getElementById("error-1");
+    let error2 = document.getElementById("error-2");
+    let error3 = document.getElementById("error-3");
+    let error4 = document.getElementById("error-4");
+
+
+    let isValid = true;     
+
+    if(name.trim()===""){
+        error1.innerHTML="Enter the name"
+        isValid = false
+
+    } if(age.trim()===""){
+        error2.innerHTML="Enter the age"
+        isValid = false
+    } if(phone.trim()===""){
+        error3.innerHTML="Enter the phone number"
+        isValid = false
+    }
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+     if(!mail.match(emailRegex)){
+      error4.innerHTML="Invalid mail"
+      isValid = false
+    }
+    return isValid;
+    alert('Form submitted successfully!');
+
+  }
+    </script>
+</body>
+</html>
